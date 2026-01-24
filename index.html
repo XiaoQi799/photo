@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图库 - 照片展示平台</title>
+    <!-- 引入Tailwind CSS 实现快速样式美化，无需额外写CSS文件 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome 图标（用于返回按钮等） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 自定义样式：照片序列卡片hover效果、单独页面样式 */
+        .img-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            /* 固定卡片布局，避免hover时重排，杜绝闪屏 */
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        .img-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            will-change: transform, box-shadow;
+        }
+        /* 单独图片页面样式 */
+        .single-page-container {
+            min-height: 100vh;
+            background-color: #f3f4f6;
+            padding: 20px 0;
+        }
+        .single-img-box {
+            background-color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .single-page-img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-contain;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        /* 返回主页按钮样式 */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            backface-visibility: hidden;
+        }
+        .back-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 修复body可能的重排闪屏 */
+        body {
+            backface-visibility: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- 网站标题（主页、单独页面通用） -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-center">
+            <h1 class="text-3xl font-bold text-blue-600 flex items-center gap-2">
+                <i class="fa-solid fa-images"></i>
+                <span>图库</span>
+            </h1>
+        </div>
+    </header>
+
+    <!-- 主页照片序列（核心模块）- 每张图片跳转单独链接 -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- 照片1：跳转至单独页面1 -->
+            <a href="single-page-1.html" class="img-card block bg-white rounded-lg overflow-hidden shadow">
+                <img 
+                    src="0001.jpg" 
+                    alt="刘伟波" 
+                    class="w-full h-56 object-cover"
+                >
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">刘伟波</h3>
+                </div>
+            </a>
+
+            <!-- 照片2：跳转至单独页面2 -->
+            <a href="single-page-2.html" class="img-card block bg-white rounded-lg overflow-hidden shadow">
+                <img 
+                    src="0001.jpg" 
+                    alt="刘伟波" 
+                    class="w-full h-56 object-cover"
+                >
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">刘伟波</h3>
+                </div>
+            </a>
+
+            <!-- 照片3：跳转至单独页面3 -->
+            <a href="single-page-3.html" class="img-card block bg-white rounded-lg overflow-hidden shadow">
+                <img 
+                    src="0001.jpg" 
+                    alt="刘伟波" 
+                    class="w-full h-56 object-cover"
+                >
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">刘伟波</h3>
+                </div>
+            </a>
+
+            <!-- 照片4：跳转至单独页面4 -->
+            <a href="single-page-4.html" class="img-card block bg-white rounded-lg overflow-hidden shadow">
+               <img 
+                    src="0001.jpg" 
+                    alt="刘伟波" 
+                    class="w-full h-56 object-cover"
+                >
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">刘伟波</h3>
+                </div>
+
+            </a>
+
+            <!-- 照片5：跳转至单独页面5 -->
+            <a href="single-page-5.html" class="img-card block bg-white rounded-lg overflow-hidden shadow">
+                <img 
+                    src="0001.jpg" 
+                    alt="刘伟波" 
+                    class="w-full h-56 object-cover"
+                >
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">刘伟波</h3>
+                </div>
+            </a>
+
+            <!-- 照片6：跳转至单独页面6 -->
+            <a href="single-page-6.html" class="img-card block bg-white rounded-lg overflow-hidden shadow">
+                <img 
+                    src="0001.jpg" 
+                    alt="刘伟波" 
+                    class="w-full h-56 object-cover"
+                >
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">刘伟波</h3>
+                </div>
+            </a>
+
+            <!-- 可自行添加更多照片，复制上方a标签，修改href、src、alt、标题即可 -->
+        </div>
+    </main>
+
+    <!-- 以下是6个单独图片页面的完整代码（每个页面单独保存为对应HTML文件） -->
+    <!-- 说明：将下方每个单独页面代码，分别复制保存为 single-page-1.html 至 single-page-6.html，与主页（当前文件）放在同一文件夹，即可实现跳转 -->
+    
+    <!-- 单独页面1：山间湖泊（保存为 single-page-1.html） -->
+    <!-- <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>山间湖泊 - 图库</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            .single-page-container {
+                min-height: 100vh;
+                background-color: #f3f4f6;
+                padding: 20px 0;
+            }
+            .single-img-box {
+                background-color: white;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+            }
+            .single-page-img {
+                max-width: 100%;
+                max-height: 80vh;
+                object-contain;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                background-color: #3b82f6;
+                color: white;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+            .back-btn:hover {
+                background-color: #2563eb;
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-center">
+                <h1 class="text-3xl font-bold text-blue-600 flex items-center gap-2">
+                    <i class="fa-solid fa-images"></i>
+                    <span>图库</span>
+                </h1>
+            </div>
+        </header>
+        <div class="single-page-container">
+            <div class="single-img-box">
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> 返回图库主页</a>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mt-4">山间湖泊</h2>
+                <img src="https://picsum.photos/id/10/1200/800" alt="山间湖泊" class="single-page-img">
+                <p class="text-gray-600">高清风景照片 · 山间湖泊特写</p>
+            </div>
+        </div>
+    </body>
+    </html> -->
+
+    <!-- 单独页面2：城市夜景（保存为 single-page-2.html） -->
+    <!-- <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>城市夜景 - 图库</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            .single-page-container {
+                min-height: 100vh;
+                background-color: #f3f4f6;
+                padding: 20px 0;
+            }
+            .single-img-box {
+                background-color: white;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+            }
+            .single-page-img {
+                max-width: 100%;
+                max-height: 80vh;
+                object-contain;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                background-color: #3b82f6;
+                color: white;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+            .back-btn:hover {
+                background-color: #2563eb;
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-center">
+                <h1 class="text-3xl font-bold text-blue-600 flex items-center gap-2">
+                    <i class="fa-solid fa-images"></i>
+                    <span>图库</span>
+                </h1>
+            </div>
+        </header>
+        <div class="single-page-container">
+            <div class="single-img-box">
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> 返回图库主页</a>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mt-4">城市夜景</h2>
+                <img src="https://picsum.photos/id/20/1200/800" alt="城市夜景" class="single-page-img">
+                <p class="text-gray-600">高清建筑照片 · 城市夜景特写</p>
+            </div>
+        </div>
+    </body>
+    </html> -->
+
+    <!-- 单独页面3：可爱猫咪（保存为 single-page-3.html） -->
+    <!-- <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>可爱猫咪 - 图库</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            .single-page-container {
+                min-height: 100vh;
+                background-color: #f3f4f6;
+                padding: 20px 0;
+            }
+            .single-img-box {
+                background-color: white;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+            }
+            .single-page-img {
+                max-width: 100%;
+                max-height: 80vh;
+                object-contain;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                background-color: #3b82f6;
+                color: white;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+            .back-btn:hover {
+                background-color: #2563eb;
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-center">
+                <h1 class="text-3xl font-bold text-blue-600 flex items-center gap-2">
+                    <i class="fa-solid fa-images"></i>
+                    <span>图库</span>
+                </h1>
+            </div>
+        </header>
+        <div class="single-page-container">
+            <div class="single-img-box">
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> 返回图库主页</a>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mt-4">可爱猫咪</h2>
+                <img src="https://picsum.photos/id/30/1200/800" alt="可爱猫咪" class="single-page-img">
+                <p class="text-gray-600">高清动物照片 · 猫咪特写</p>
+            </div>
+        </div>
+    </body>
+    </html> -->
+
+    <!-- 单独页面4：复古咖啡（保存为 single-page-4.html） -->
+    <!-- <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>复古咖啡 - 图库</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            .single-page-container {
+                min-height: 100vh;
+                background-color: #f3f4f6;
+                padding: 20px 0;
+            }
+            .single-img-box {
+                background-color: white;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+            }
+            .single-page-img {
+                max-width: 100%;
+                max-height: 80vh;
+                object-contain;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                background-color: #3b82f6;
+                color: white;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+            .back-btn:hover {
+                background-color: #2563eb;
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-center">
+                <h1 class="text-3xl font-bold text-blue-600 flex items-center gap-2">
+                    <i class="fa-solid fa-images"></i>
+                    <span>图库</span>
+                </h1>
+            </div>
+        </header>
+        <div class="single-page-container">
+            <div class="single-img-box">
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> 返回图库主页</a>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mt-4">复古咖啡</h2>
+                <img src="https://picsum.photos/id/40/1200/800" alt="复古咖啡" class="single-page-img">
+                <p class="text-gray-600">高清静物照片 · 复古咖啡特写</p>
+            </div>
+        </div>
+    </body>
+    </html> -->
+
+    <!-- 单独页面5：海边日落（保存为 single-page-5.html） -->
+    <!-- <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>海边日落 - 图库</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            .single-page-container {
+                min-height: 100vh;
+                background-color: #f3f4f6;
+                padding: 20px 0;
+            }
+            .single-img-box {
+                background-color: white;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+            }
+            .single-page-img {
+                max-width: 100%;
+                max-height: 80vh;
+                object-contain;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                background-color: #3b82f6;
+                color: white;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+            .back-btn:hover {
+                background-color: #2563eb;
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-center">
+                <h1 class="text-3xl font-bold text-blue-600 flex items-center gap-2">
+                    <i class="fa-solid fa-images"></i>
+                    <span>图库</span>
+                </h1>
+            </div>
+        </header>
+        <div class="single-page-container">
+            <div class="single-img-box">
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> 返回图库主页</a>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mt-4">海边日落</h2>
+                <img src="https://picsum.photos/id/50/1200/800" alt="海边日落" class="single-page-img">
+                <p class="text-gray-600">高清风景照片 · 海边日落特写</p>
+            </div>
+        </div>
+    </body>
+    </html> -->
+
+    <!-- 单独页面6：老街巷弄（保存为 single-page-6.html） -->
+    <!-- <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>老街巷弄 - 图库</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            .single-page-container {
+                min-height: 100vh;
+                background-color: #f3f4f6;
+                padding: 20px 0;
+            }
+            .single-img-box {
+                background-color: white;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                text-align: center;
+            }
+            .single-page-img {
+                max-width: 100%;
+                max-height: 80vh;
+                object-contain;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                background-color: #3b82f6;
+                color: white;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+            .back-btn:hover {
+                background-color: #2563eb;
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-center">
+                <h1 class="text-3xl font-bold text-blue-600 flex items-center gap-2">
+                    <i class="fa-solid fa-images"></i>
+                    <span>图库</span>
+                </h1>
+            </div>
+        </header>
+        <div class="single-page-container">
+            <div class="single-img-box">
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> 返回图库主页</a>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mt-4">老街巷弄</h2>
+                <img src="https://picsum.photos/id/60/1200/800" alt="老街巷弄" class="single-page-img">
+                <p class="text-gray-600">高清人文照片 · 老街巷弄特写</p>
+            </div>
+        </div>
+    </body>
+    </html> -->
+
+    <!-- 使用说明：
+    1.  将当前文件保存为 index.html（图库主页）；
+    2.  将上方注释中的6个单独页面代码，分别复制、删除注释符号（<!-- 和 -->），保存为对应的HTML文件（single-page-1.html 至 single-page-6.html）；
+    3.  所有HTML文件放在同一文件夹，打开 index.html 即可，点击任意图片均可跳转至对应单独页面；
+    4.  单独页面均有“返回图库主页”按钮，可快速返回；
+    5.  可自行修改图片链接（src）、页面标题、跳转链接（href），新增照片时复制主页对应a标签，同步新增单独页面即可。
+    -->
+</body>
+</html>
